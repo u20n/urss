@@ -50,7 +50,7 @@ main(void) {
   // we only need to make one substring -- consume_until_tag includes part of the closing tag, so we need to remove it
   
   /** echo beginning of RSS feed */
-  printf("<rss version=\"0.91\">\n<channel>\n");
+  printf("<rss version=\"0.92\">\n<channel>\n");
 
   while (consume_until_tag(ITEM_TAG, NULL) != -1) { 
     printf("<item>\n");

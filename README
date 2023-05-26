@@ -3,7 +3,7 @@ urss -- micro RSS generator
 
 - fully POSIX c99
 - compiled config
-- RSS 0.91
+- RSS 0.92[0]
 - UNIX pipes only
 
 usage
@@ -43,8 +43,8 @@ urss would produce the following XML snippet:
 </item>
 ```
 
-
-
 license
 -------
 urss is provided as software licensed under GPL v3+ <https://www.gnu.org/licenses/gpl-3.0.txt> and <LICENSE>
+
+[0]: Really, this is 0.91 sans limits
