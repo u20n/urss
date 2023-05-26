@@ -1,0 +1,50 @@
+urss -- micro RSS generator
+===========================
+
+- fully POSIX c99
+- compiled config
+- RSS 0.91
+- UNIX pipes only
+
+usage
+-----
+urss takes input and produces output through UNIX pipes;
+e.g. `cat index.html post1.html ... | urss > index.rss`
+
+urss looks for:
+- item: all of the following must be within `ITEM_TAG`
+- title: any string within `TITLE_TAG` 
+- link: any string within `LINK_TAG`
+- description: any string within `DESC_TAG`
+
+e.g.
+Given the following HTML snippet:
+```html
+<article>
+  <h1>My Title</h1>
+  <link><a href=www.example.com>backlink to this article</a></link>
+  <p>my really cool content</p>
+</article>
+```
+with the following config:
+```
+ITEM_TAG = article
+TITLE_TAG = h1
+LINK_TAG = link
+DESC_TAG = p
+```
+
+urss would produce the following XML snippet:
+```
+<item>
+<title>My Title</title>
+<link><a href=www.example.com>backlink to this article</a></link>
+<description><p>my really cool content</p></description>
+</item>
+```
+
+
+
+license
+-------
+urss is provided as software licensed under GPL v3+ <https://www.gnu.org/licenses/gpl-3.0.txt> and <LICENSE>
