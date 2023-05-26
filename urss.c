@@ -53,10 +53,12 @@ main(void) {
   printf("<rss version=\"0.91\">\n<channel>\n");
 
   while (consume_until_tag(ITEM_TAG, NULL) != -1) { 
+    printf("<item>\n");
     export_content(TITLE);
     export_content(LINK);
     export_content(DESC);
     
+    printf("</item>\n");
     /** go next */
     consume_until_tag(ITEM_TAG, NULL);
   }
