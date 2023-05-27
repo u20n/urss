@@ -21,29 +21,28 @@ consume_until_tag(const char* tag, char* content) {
         else
           i++;
     } 
- 
+
+    /** FIXME this is awful */
     if (content != NULL && k != '\n') { 
-      char* rep; 
+      char* r = "";
       switch(k) { // XML compliant HTML
         case '<':
-          rep = "&lt;";
+          r = "&lt; ";
           break;
         case '>':
-          rep = "&gt;";
+          r = "&gt; ";
           break;
         case '&':
-          rep = "&amp;";
-          break;
-        case '\"':
-          rep = "&#34;";
-          break;
-        default: 
-          rep = &k;
-      };
-      for (unsigned int n = 0; n < strlen(rep); n++) { 
-        content[j] = rep[n];
-        j++;
+          r = "&amp; ";
+          break;  
+        default:
+          content[j] = k;
+          j++;
       } 
+ 
+      for (unsigned int n = 0; n < strlen(r); n++ && j++) { 
+        content[j] = r[n];
+      }
     }
   }
   return -1; 
@@ -53,14 +52,13 @@ void
 export_content(int type) {
   consume_until_tag(TYPES[type][0], NULL); 
   char content[CONTENT_LEN]; 
-  // FIXME: j is adding 2x the tag 
-  int j = consume_until_tag(TYPES[type][0], content); 
+  int j = consume_until_tag(TYPES[type][0], content);
   /**
    * j (end)
-   * - 2x length of type
+   * - length of type
    * - 5 for XML compliant <: '&lt;' and the following '/' 
-   */ 
-  content[j - 2*strlen(TYPES[type][0]) - 5] = '\0'; // clean up closing tag
+   */
+  content[j - strlen(TYPES[type][0]) - 5] = '\0'; // clean up closing tag
   printf("<%s>%s</%s>\n", TYPES[type][1], content, TYPES[type][1]);
 }
 
@@ -74,8 +72,7 @@ main(void) {
    * we only need to make one substring -- consume_until_tag includes part of the closing tag, so we need to remove it
    */
   /** echo beginning of RSS feed */
-  printf("<rss version=\"0.92\">\n<channel>\n");
-
+  printf("<rss version=\"0.92\">\n<channel>\n%s\n", CHANNEL_PREFIX);
   while (consume_until_tag(ITEM_TAG, NULL) != -1) { 
     printf("<item>\n");
     export_content(TITLE);
