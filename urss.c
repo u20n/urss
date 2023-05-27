@@ -21,28 +21,10 @@ consume_until_tag(const char* tag, char* content) {
         else
           i++;
     } 
-
-    /** FIXME this is awful */
+    /** record to string */ 
     if (content != NULL && k != '\n') { 
-      char* r = "";
-      switch(k) { // XML compliant HTML
-        case '<':
-          r = "&lt; ";
-          break;
-        case '>':
-          r = "&gt; ";
-          break;
-        case '&':
-          r = "&amp; ";
-          break;  
-        default:
-          content[j] = k;
-          j++;
-      } 
- 
-      for (unsigned int n = 0; n < strlen(r); n++ && j++) { 
-        content[j] = r[n];
-      }
+      content[j] = k;
+      j++;
     }
   }
   return -1; 
@@ -54,12 +36,12 @@ export_content(int type) {
   char content[CONTENT_LEN]; 
   int j = consume_until_tag(TYPES[type][0], content);
   /**
-   * j (end)
+   * j (end) 
    * - length of type
-   * - 5 for XML compliant <: '&lt;' and the following '/' 
+   * - closing '</'
    */
-  content[j - strlen(TYPES[type][0]) - 5] = '\0'; // clean up closing tag
-  printf("<%s>%s</%s>\n", TYPES[type][1], content, TYPES[type][1]);
+  content[j - strlen(TYPES[type][0]) - 2] = '\0'; // clean up closing tag
+  printf("<%s><![CDATA[%s]]></%s>\n", TYPES[type][1], content, TYPES[type][1]);
 }
 
 int
@@ -77,8 +59,7 @@ main(void) {
     printf("<item>\n");
     export_content(TITLE);
     export_content(LINK);
-    export_content(DESC);
-    
+    export_content(DESC); 
     printf("</item>\n");
     /** go next */
     consume_until_tag(ITEM_TAG, NULL);

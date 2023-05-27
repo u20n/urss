@@ -43,8 +43,20 @@ urss would produce the following XML snippet:
 </item>
 ```
 
+patching
+--------
+1. read the source
+
+adding non-essential fields is trivial;
+- add the relevant pairing of XML <-> HTML to `TYPES` and the type enumerator
+- call `export_content` with the relevant field in the main loop 
+
+please submit patches on either bug tracker[1][2], or to <git [at] notu [dot] dev> with the Subject: 'URSS PATCH: ...'.
+
 license
 -------
 urss is provided as software licensed under GPL v3+ <https://www.gnu.org/licenses/gpl-3.0.txt> and <LICENSE>
 
-[0]: Really, this is 0.91 sans limits
+[0]: <https://www.rssboard.org/rss-0-9-2>
+[1]: <https://github.com/u20n/urss/issues>
+[2]: <https://gitlab.com/u2on/urss/-/issues>
