@@ -1,62 +1,45 @@
-urss -- micro RSS generator
+uRSS -- micro RSS generator
 ===========================
 
 - fully POSIX c99
 - compiled config
-- RSS 0.92[0]
+- RSS 0.92+[0]
 - UNIX pipes only
 
 usage
 -----
-urss takes input and produces output through UNIX pipes;
-e.g. `cat index.html post1.html ... | urss > index.rss`
+uRSS takes input and produces output through UNIX pipes.
+e.g. `cat index.html post1.html ... | uRSS > index.rss`
 
-urss looks for:
-- item: all of the following must be within `ITEM_TAG`
-- title: any string within `TITLE_TAG` 
-- link: any string within `LINK_TAG`
-- description: any string within `DESC_TAG`
+uRSS uses a simple XML <-> HTML mapping, where any contained string within a given HTML tag is wrapped with the relevant XML tag.
 
 e.g.
-Given the following HTML snippet:
-```html
-<article>
-  <h1>My Title</h1>
-  <link><a href=www.example.com>backlink to this article</a></link>
-  <p>my really cool content</p>
-</article>
-```
-with the following config:
-```
-ITEM_TAG = article
-TITLE_TAG = h1
-LINK_TAG = link
-DESC_TAG = p
-```
+`<h1>foobar</h1>` --[ given h1 <-> title]--> `<title>foobar</title>`
 
-urss would produce the following XML snippet:
-```
-<item>
-<title>My Title</title>
-<link><a href=www.example.com>backlink to this article</a></link>
-<description><p>my really cool content</p></description>
-</item>
-```
+
+There are four required tags (since 0.91);
+- item: all of the following must be within `ITEM_TAG`
+ |- title: any string within `TITLE_TAG` 
+ |- link: any string within `LINK_TAG`
+ |- description: any string within `DESC_TAG`
+
+Any subsequent tags (anything in RSS 0.92+) can be added in order of appearance.
+uRSS is a stream-based program; if any tag is out of order, it will be consumed by the current tag.
 
 patching
 --------
-1. read the source
+please submit patches on either mirror[1][2], or to <git [at] notu [dot] dev> with the Subject: 'URSS PATCH: ...'.
 
-adding non-essential fields is trivial;
-- add the relevant pairing of XML <-> HTML to `TYPES` and the type enumerator
-- call `export_content` with the relevant field in the main loop 
-
-please submit patches on either bug tracker[1][2], or to <git [at] notu [dot] dev> with the Subject: 'URSS PATCH: ...'.
+bugs
+----
+please report bugs to either mirror[3][4], or to <git [at] notu [dot] dev> with the Subject: 'URSS BUG: ...'.
 
 license
 -------
-urss is provided as software licensed under GPL v3+ <https://www.gnu.org/licenses/gpl-3.0.txt> and <LICENSE>
+uRSS is provided as software licensed under GPL v3+ <https://www.gnu.org/licenses/gpl-3.0.txt> and <LICENSE>
 
 [0]: <https://www.rssboard.org/rss-0-9-2>
-[1]: <https://github.com/u20n/urss/issues>
-[2]: <https://gitlab.com/u2on/urss/-/issues>
+[1]: <https://github.com/u20n/urss>
+[2]: <https://github.com/u2on/urss>
+[3]: <https://github.com/u20n/urss/issues>
+[4]: <https://gitlab.com/u2on/urss/-/issues>
