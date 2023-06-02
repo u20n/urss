@@ -10,6 +10,8 @@ enum {
 unsigned int CONTENT_LEN = 2048; // max length of any field's contents
 
 /** tags are all sans braces */
+#define CHANNEL_TAG "channel"
+
 #define ITEM_TAG  "article"
 #define TITLE_TAG "h1"
 #define LINK_TAG  "link"

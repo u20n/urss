@@ -9,7 +9,7 @@ uRSS -- micro RSS generator
 usage
 -----
 uRSS takes input and produces output through UNIX pipes.
-e.g. `cat index.html post1.html ... | uRSS > index.rss`
+e.g. `cat index.html post1.html ... | urss > index.rss`
 
 uRSS uses a simple XML <-> HTML mapping, where any contained string within a given HTML tag is wrapped with the relevant XML tag.
 

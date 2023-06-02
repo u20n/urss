@@ -44,6 +44,11 @@ export_content(int type) {
   printf("<%s><![CDATA[%s]]></%s>\n", TYPES[type][1], content, TYPES[type][1]);
 }
 
+#define EXPORT_TRAITS \
+  export_content(TITLE); \
+  export_content(LINK); \
+  export_content(DESC);
+
 int
 main(void) { 
   /**
@@ -54,15 +59,13 @@ main(void) {
    * we only need to make one substring -- consume_until_tag includes part of the closing tag, so we need to remove it
    */
   /** echo beginning of RSS feed */
-  printf("<rss version=\"0.92\">\n<channel>\n%s\n", CHANNEL_PREFIX);
+  printf("<rss version=\"0.92\">\n<channel>\n");
+  consume_until_tag(CHANNEL_TAG, NULL);
+  EXPORT_TRAITS;
+ 
   while (consume_until_tag(ITEM_TAG, NULL) != -1) { 
     printf("<item>\n");
-    export_content(TITLE);
-    export_content(LINK);
-    export_content(DESC); 
-    printf("</item>\n");
-    /** go next */
-    consume_until_tag(ITEM_TAG, NULL);
+    EXPORT_TRAITS;
   }
 
   /** echo end of RSS feed */
