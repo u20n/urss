@@ -16,8 +16,8 @@ uRSS uses a simple XML <-> HTML mapping, where any contained string within a giv
 e.g.
 `<h1>foobar</h1>` --[ given h1 <-> title]--> `<title>foobar</title>`
 
-
 There are four required tags (since 0.91);
+- channel: all of the following must be declared prior to any item
 - item: all of the following must be within `ITEM_TAG`
  |- title: any string within `TITLE_TAG` 
  |- link: any string within `LINK_TAG`
@@ -26,13 +26,9 @@ There are four required tags (since 0.91);
 Any subsequent tags (anything in RSS 0.92+) can be added in order of appearance.
 uRSS is a stream-based program; if any tag is out of order, it will be consumed by the current tag.
 
-patching
+patching + bugs
 --------
-please submit patches on either mirror[1][2], or to <git [at] notu [dot] dev> with the Subject: 'URSS PATCH: ...'.
-
-bugs
-----
-please report bugs to either mirror[3][4], or to <git [at] notu [dot] dev> with the Subject: 'URSS BUG: ...'.
+please submit patches on either mirror[1][2], or to <git [at] notu [dot] dev> with the Subject: 'URSS PATCH: ...' or 'URSS BUG: ...', respectively.
 
 license
 -------
@@ -41,5 +37,3 @@ uRSS is provided as software licensed under GPL v3+ <https://www.gnu.org/license
 [0]: <https://www.rssboard.org/rss-0-9-2>
 [1]: <https://github.com/u20n/urss>
 [2]: <https://github.com/u2on/urss>
-[3]: <https://github.com/u20n/urss/issues>
-[4]: <https://gitlab.com/u2on/urss/-/issues>
