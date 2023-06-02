@@ -25,8 +25,5 @@ const char* TYPES[4][2] = {
   {DESC_TAG,  "description"},
 };
 
-/** REQUIRED: channel prefix */
-const char* CHANNEL_PREFIX = "<title>foo</title>\n<description>bar</description>\n<link>biz</link>";
-
 #define __config_h
 #endif
