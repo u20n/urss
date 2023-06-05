@@ -66,6 +66,7 @@ main(void) {
   while (consume_until_tag(ITEM_TAG, NULL) != -1) { 
     printf("<item>\n");
     EXPORT_TRAITS;
+    printf("</item>\n");
   }
 
   /** echo end of RSS feed */
